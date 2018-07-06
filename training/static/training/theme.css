@@ -1,0 +1,233 @@
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: #F0F568;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+#header {
+  padding: 60px 0 48px;
+}
+
+#content {
+  text-align:center;
+  max-height: 400px;
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#footer {
+  text-align:center;
+  max-height: 200px;
+  padding: 20px 0 20px;
+}
+
+/*Index CSS*/
+.body_index {  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  overflow-x: hidden;
+  background: #000000;
+}
+
+.body_login {  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  overflow-x: hidden;
+  background: #82caff;
+}
+
+
+
+.title_index {
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ text-shadow:1px 1px 1px rgba(255,255,214,1);
+ font-weight:normal;
+ color:#ffffff;
+ letter-spacing:3pt;
+ word-spacing:8pt;
+ font-size:46px;
+ text-align:center;
+ line-height:1;
+ }
+
+ .text1_index {
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ text-shadow:-20px -20px 0 rgba(255,255,214,0);
+ font-weight:normal;
+ color:#ffffff;
+ letter-spacing:3pt;
+ word-spacing:8pt;
+ font-size:12px;
+ text-align:center;
+ line-height:1;
+ }
+
+ .entry_block {
+  text-align: center;
+  width: auto; /*matching the parents div width*/
+  margin: 1.3em auto 0;
+  padding: 15px 1.7em;
+  border-radius: 10px;
+  max-width: 350px;
+  min-width: 350px;
+  background-color: #ffffff;
+  border: solid #000000 1px;
+ }
+
+.font {
+  font-family: 'Helvetica', 'Verdana', sans-serif;
+  text-shadow:-20px -20px 0 rgba(255,255,214,0);
+  font-weight:normal;
+  color:#000000;
+  letter-spacing:3pt;
+  word-spacing:8pt;
+}
+
+/*Views CSS*/
+.button {
+  background: #3cb0fd;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Courier New;
+  color: #ffffff;
+  font-size: 26px;
+  position: relative;
+  border: solid #000000 3px;
+  padding: 13px 40px 11px 40px;
+}
+
+.button:hover {
+  background: #3498db;
+  text-decoration: none;
+}
+
+.btn_return {
+  background: #e23f36;
+  display: inline-block;
+  margin: auto;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Courier New;
+  color: #ffffff;
+  font-size: 26px;
+  position: relative;
+  border: solid #000000 3px;
+  padding: 13px 40px 11px 40px;
+}
+
+.btn_return:hover{
+  background: #f96868;
+  text-decoration: none;
+}
+
+.b {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#btn_logout {
+  float: right;
+  margin-top: 20px;
+  margin-right: 10px;
+  color
+}
+
+.title {
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ text-shadow:1px 1px 1px rgba(255,255,214,1);
+ font-weight:normal;
+ color:#000000;
+ letter-spacing:3pt;
+ word-spacing:8pt;
+ font-size:46px;
+ text-align:center;
+ line-height:1;
+ }
+
+ .text1 {
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ text-shadow:-20px -20px 0 rgba(255,255,214,0);
+ font-weight:normal;
+ color:#000000;
+ letter-spacing:3pt;
+ word-spacing:8pt;
+ font-size:12px;
+ text-align:center;
+ line-height:1;
+ }
+
+ .text2 {
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ text-shadow:-20px -20px 0 rgba(255,255,214,0);
+ color:#000000;
+ letter-spacing:2pt;
+ word-spacing:6pt;
+ font-size:11px;
+ text-align:center;
+ line-height:1;
+ }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.bar_option {
+ float: right;
+ font-family: 'Helvetica', 'Verdana', sans-serif;
+ display: inline-block;
+ color: white;
+ text-align: center;
+ padding: 14px 16px;
+ text-decoration: none;
+}
+
+.bar_option:hover {
+    background-color: #3399ff;
+}
+
+$bkBtnSize: 52px;
+.bk-btn {
+  height: $bkBtnSize;
+  width: $bkBtnSize;
+  background-color: black;
+  border-radius: 50%;
+  .bk-btn-triangle {
+    position: relative;
+    top: $bkBtnSize*0.25;
+    left: $bkBtnSize*0.2;
+    width: 0;
+    height: 0;
+    border-top: $bkBtnSize*0.25 solid transparent;
+    border-bottom: $bkBtnSize*0.25 solid transparent;
+    border-right: $bkBtnSize*0.25 solid white;
+  }
+  .bk-btn-bar {
+    position: relative;
+    background-color: white;
+    height: $bkBtnSize*0.15;
+    width: $bkBtnSize*0.25;
+    top: $bkBtnSize*-0.07;
+    left: $bkBtnSize*0.44;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}

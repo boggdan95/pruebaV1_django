@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\pruebaV1_django",
     "\\training"
   ],
-  "SelectedNode": "\\manage.py",
+  "SelectedNode": "\\training\\models.py",
   "PreviewInSolutionExplorer": false
 }
