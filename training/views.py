@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 
 
 
-def HomeView(request):
+def index(request):
     user = User.get_username
-    return render(request, 'trainig/homepage.html', {'user' : user })
+    return render(request, 'training/homepage.html', {'user' : user })
+
+
 

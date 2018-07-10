@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\pruebaV1_django",
-    "\\training"
+    "\\training",
+    "\\training\\static",
+    "\\training\\static\\training",
+    "\\training\\templates",
+    "\\training\\templates\\training"
   ],
-  "SelectedNode": "\\training\\models.py",
+  "SelectedNode": "\\pruebaV1_django\\urls.py",
   "PreviewInSolutionExplorer": false
 }
