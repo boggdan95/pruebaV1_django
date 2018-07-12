@@ -6,8 +6,22 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-    user = User.get_username
-    return render(request, 'training/homepage.html', {'user' : user })
+    return render(request, 'training/homepage.html')
 
+def training(request):
+    return render(request, 'training/entrenamiento.html')
 
+def games(request):
+    return render(request, 'training/games.html')
 
+def configuration(request):
+    return render(request, 'training/config.html')
+
+def faq(request):
+    return render(request, 'training/faq.html')
+
+def contact(request):
+    return render(request, 'training/contact.html')
+
+def sessionTraining(request):
+    return render(request, 'training/sesionEntrenamiento.html')
