@@ -1,4 +1,4 @@
-input[type=text],input[type=number],input[type=password]{
+input[type=text],input[type=password],input[type=email]{
     padding: 8px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -14,7 +14,7 @@ label {
     text-align: right;
 }
 
-input[type=submit], #btn_save {
+button[type=submit], #btn_save {
   background: #3cb0fd;
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
@@ -27,7 +27,7 @@ input[type=submit], #btn_save {
   padding: 13px 40px 11px 40px;
 }
 
-input[type=submit]:hover, #btn_save:hover {
+button[type=submit]:hover, #btn_save:hover {
   background: #33cc33;
   text-decoration: none;
 }

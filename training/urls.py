@@ -1,11 +1,13 @@
 from django.urls import path, re_path
-from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+
 
 from . import views
 
 app_name = 'trainig'
 urlpatterns = [
-    path('', views.index, name='index'),
+    re_path('login', auth_views.LoginView.as_view(), name='login'),
+    re_path('register', views.signup, name='signup'),
     re_path('homepage', views.index, name='index'),
     re_path('entrenamiento', views.training, name='training'),
     re_path('games', views.games, name='games'),
