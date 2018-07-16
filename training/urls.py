@@ -14,4 +14,5 @@ urlpatterns = [
     re_path('config', views.configuration, name='configuration'),
     re_path('faq', views.faq, name='faq'),
     re_path('contact', views.contact, name='contact'),
+    re_path('sesionEntrenamiento', views.sessionTraining , name='sessionTraining')
 ]

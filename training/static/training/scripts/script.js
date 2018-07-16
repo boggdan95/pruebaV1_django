@@ -1,5 +1,3 @@
-var socket = io();
-
 var nombre, apellido, edad, tipoEntrenamiento, tiempoEntrenamiento, modulosEntrenamiento, moduloColor;
 
 function athlete(nombre,apellido,edad){

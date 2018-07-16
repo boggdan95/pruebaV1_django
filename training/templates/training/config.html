@@ -1,29 +1,26 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quick Traineer</title>
+﻿{% extends "base.html" %}
+
+{% block static %}
     {% load static %}
-
-    <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
-
-</head>
-<body>
-    <div id="header">
-        <h1 class="title">Quick Trainner</h1>
-        <p class="text1">This is my first page.</p>
-    </div >
-        <div id="content">
-            <div class="b"><a href="user.html"><button class="button">Usuario</button></a></div>
-            <div class="b"><button class="button">Conexión</button></div>
-            <div class="b"><a href="colors.html"><button class="button">Colores</button></a></div>
-        </div>
-        <div id="footer">
-            <ul>
-              <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
-              <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
-              <li><a href="homepage.html" class="bar_option">Inicio</a></li>
-            </ul>
-        </div>
-</body>
-</html>
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
+{% endblock static %}
+{% block content %}
+<div id="header">
+    <h1 class="title">Quick Trainner</h1>
+    <p class="text1">{{user}} realiza los cambios necesarios.</p>
+</div>
+<div id="content">
+    <div class="b"><a href="user.html"><button class="button">Usuario</button></a></div>
+    <div class="b"><button class="button">Conexión</button></div>
+    <div class="b"><a href="colors.html"><button class="button">Colores</button></a></div>
+</div>
+{% endblock content %}
+{% block bar %}
+<div id="footer">
+    <ul class="menuBar">
+        <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
+        <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
+        <li><a href="homepage.html" class="bar_option">Inicio</a></li>
+    </ul>
+</div>
+{% endblock bar %}

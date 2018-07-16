@@ -1,31 +1,28 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quick Traineer</title>
-    {% load static %}
+﻿{% extends "base.html" %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme_game.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
-    <script type="text/javascript" src="../scripts/script.js"></script>
-</head>
-<body>
+{% block static %}
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme_game.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
+<script type="text/javascript" src="{% static 'training/scripts/script.js' %}"></script>
+{% endblock static %}
+{% block content %}
 <div id="header">
-        <h1 class="title">Quick Trainner</h1>
-        <p class="text1">This is my first page.</p>
-    </div >
-        <div id="content" >
-            <div class="b" id="G1"><button class="button" onclick="selectGame(1)">Juego 1</button></div>
-            <div class="b" id="G2"><button class="button" onclick="selectGame(2)">Juego 2</button></div>
-            <div class="b" id="G3"><button class="button" onclick="selectGame(3)">Juego 3</button></div>
-        </div>
-        <div id="footer">
-            <ul>
-              <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
-              <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
-              <li><a href="homepage.html" class="bar_option">Inicio</a></li>
-            </ul>
-            </div>
-        </div>
-</body>
-</html>
+    <h1 class="title">Quick Trainner</h1>
+    <p class="text1">¿Listo para jugar, {{user}}?</p>
+</div>
+<div id="content">
+    <div class="b" id="G1"><button class="button" onclick="selectGame(1)">Juego 1</button></div>
+    <div class="b" id="G2"><button class="button" onclick="selectGame(2)">Juego 2</button></div>
+    <div class="b" id="G3"><button class="button" onclick="selectGame(3)">Juego 3</button></div>
+</div>
+{% endblock content %}
+{% block bar %}
+<div id="footer">
+    <ul class="menuBar">
+        <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
+        <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
+        <li><a href="homepage.html" class="bar_option">Inicio</a></li>
+    </ul>
+</div>
+{% endblock bar %}

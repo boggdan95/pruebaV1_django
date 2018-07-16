@@ -185,7 +185,11 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #000000;
+    background-color: transparent;
+}
+
+.menuBar {
+    background-color: black;
 }
 
 .bar_option {

@@ -1,37 +1,34 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quick Traineer</title>
+﻿{% extends "base.html" %}
+
+{% block static %}
     {% load static %}
-
-    <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
-
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
+{% endblock static %}
+{% block content %}
 <div id="header">
-        <h1 class="title">Quick Trainner</h1>
-        <p class="text1">This is my first page.</p>
-    </div >
-        <div id="content">
-          <p class="bold text2">¿Qué es Quick Traineer?</p>
-          <p class="text2">Es un sistema de módulos interconectados que permite crear, realizar ejercicios de tiempo de reacción.</p>
-          <p class="bold text2">Tiempos de reacción complejo y sencillo ¿Qué son?</p>
-          <p></p>
-          <p class="bold text2">¿Cómo programar su entreno?</p>
-          <p></p>
-          <p class="bold text2">¿Cómo compartir sus resultados?</p>
-          <p></p>
-          <p class="bold text2">¿Cómo interpretar los resultados?</p>
-          <p></p>
+    <h1 class="title">Quick Trainner</h1>
+    <p class="text1">This is my first page.</p>
+</div>
+<div id="content">
+    <p class="bold text2">¿Qué es Quick Traineer?</p>
+    <p class="text2">Es un sistema de módulos interconectados que permite crear, realizar ejercicios de tiempo de reacción.</p>
+    <p class="bold text2">Tiempos de reacción complejo y sencillo ¿Qué son?</p>
+    <p></p>
+    <p class="bold text2">¿Cómo programar su entreno?</p>
+    <p></p>
+    <p class="bold text2">¿Cómo compartir sus resultados?</p>
+    <p></p>
+    <p class="bold text2">¿Cómo interpretar los resultados?</p>
+    <p></p>
+</div>
+{% endblock content %}
+{% block bar %}
+<div id="footer">
+    <ul class="menuBar">
+        <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
+        <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
+        <li><a href="homepage.html" class="bar_option">Inicio</a></li>
+    </ul>
+</div>
         </div>
-        <div id="footer">
-            <ul>
-              <li><a href="faq.html" class="bar_option">Preguntas frecuentes</a></li>
-              <li><a href="contact.html" class="bar_option">Contáctanos</a></li>
-              <li><a href="homepage.html" class="bar_option">Inicio</a></li>
-            </ul>
-            </div>
-        </div>
-</body>
-</html>
+{% endblock bar %}

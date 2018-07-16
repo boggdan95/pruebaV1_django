@@ -1,6 +1,3 @@
-var socket = io();
-
-socket.emit("trainning","Ready");
 
 //Timer function
 window.onload = function(){

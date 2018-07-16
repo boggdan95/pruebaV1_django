@@ -5,8 +5,9 @@
     "\\training",
     "\\training\\static\\training",
     "\\training\\static\\training\\styles",
-    "\\training\\templates\\registration"
+    "\\training\\templates",
+    "\\training\\templates\\training"
   ],
-  "SelectedNode": "\\training\\static",
+  "SelectedNode": "\\training\\templates\\training\\games.html",
   "PreviewInSolutionExplorer": false
 }
