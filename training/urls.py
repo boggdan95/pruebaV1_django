@@ -8,6 +8,7 @@ app_name = 'trainig'
 urlpatterns = [
     re_path('login', auth_views.LoginView.as_view(), name='login'),
     re_path('register', views.signup, name='signup'),
+    re_path('password', views.change_password, name='change_password'),
     re_path('homepage', views.index, name='index'),
     re_path('entrenamiento', views.training, name='training'),
     re_path('games', views.games, name='games'),

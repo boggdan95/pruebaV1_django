@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.models import User
-from training.forms import SignUpForm
+from django.contrib import messages
+from django.contrib.auth.forms import SetPasswordForm
+from training.forms import SignUpForm, NewPasswordForm
 
 def signup(request):
     if request.method == 'POST':
@@ -18,6 +20,24 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def change_password(request):
+    if request.method == 'POST':
+        form = NewPasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('usuario')
+            if User.objects.filter(username=username).exists():
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Tu constraseña ha sido actualizada satisfactoriamente')
+                return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = NewPasswordForm(request.user, request.POST)
+    return render(request, 'registration/change_password.html', {
+        'form': form
+    })
 
 def login(request):
     return render(request, 'registration/login.html')
