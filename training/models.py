@@ -1,42 +1,44 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.postgres.fields import JSONField
 
 
 # Create your models here.
 
 class TrainingType(models.Model):
-    id = models.AutoField(primary_key=True)
-    key = models.PositiveIntegerField()
-    name = (('s' , "Secuencial"),('r',"Aleatorio"))
-
+    SECUENCIAL = 'Secuencial'
+    RANDOM = 'Aleatorio'
+    TYPE_TRAINING = ((SECUENCIAL, "Secuencial"),(RANDOM,"Aleatorio"))
+    type_training = models.CharField(max_length=30, choices=TYPE_TRAINING, default=SECUENCIAL)
 
 
 class TrainingDescription(models.Model):
-    id = models.AutoField(primary_key=True)
-    type = models.ForeignKey(TrainingType, on_delete=models.CASCADE)
-    user = User.get_username
-    name = models.TextField()
-    parameters = ('Time', models.IntegerField()),('Iteration', models.IntegerField()),('Hit', models.BooleanField(), type)
-
-
+    TIMES = ((30,30),(45,45),(60,60),(75,75),(90,90),(105,105),(120,120))
+    training_type = models.ForeignKey(TrainingType, on_delete=models.CASCADE)
+    name = models.TextField(default='SOME NAME')
+    time = models.IntegerField(choices=TIMES,default=30)
+    reps = models.IntegerField(default=10,
+        validators=[
+            MaxValueValidator(25),
+            MinValueValidator(10)
+        ])
 
 class TrainingSession(models.Model):
-    id = models.AutoField(primary_key=True)
     time = models.DateTimeField(auto_now_add=True)
-    user = User.get_username
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='User', null=True)
     description = models.ForeignKey(TrainingDescription, on_delete=models.CASCADE)
     results = JSONField() 
 
 
 
 class PresetTrainingSession(models.Model):
-    id = models.AutoField(primary_key=True)
-    key = models.IntegerField()
-    type = models.ForeignKey(TrainingType, on_delete=models.CASCADE)
-    parameters = ('Time', models.IntegerField()),('Iteration', models.IntegerField()),('Hit', models.BooleanField(), type)
-
+    training_type = models.ForeignKey(TrainingType, on_delete=models.CASCADE)
+    name = models.TextField(default='preset training')
+    instructions = models.TextField();
+    time = models.IntegerField(default=30)
+    reps = models.IntegerField(default=10)
 
 
 

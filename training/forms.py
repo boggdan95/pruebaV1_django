@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django.contrib.auth.models import User
+from .models import TrainingDescription
+
 
 
 class SignUpForm(UserCreationForm):
@@ -17,4 +19,10 @@ class NewPasswordForm(UserCreationForm):
     username = forms.CharField()
     class Meta:
         model = User
-        fields = ('username', 'new_password1', 'new_password2',) 
+        fields = ('username', 'password1', 'password2',) 
+
+
+class TrainingDescriptionForm(forms.ModelForm):
+    class Meta:
+       model = TrainingDescription
+       fields = ('name','training_type', 'time', 'reps')

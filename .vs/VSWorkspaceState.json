@@ -3,6 +3,7 @@
     "",
     "\\pruebaV1_django",
     "\\training",
+    "\\training\\migrations",
     "\\training\\static",
     "\\training\\static\\training",
     "\\training\\static\\training\\scripts",
@@ -10,6 +11,6 @@
     "\\training\\templates",
     "\\training\\templates\\training"
   ],
-  "SelectedNode": "\\training\\static\\training\\scripts\\countdown.js",
+  "SelectedNode": "\\training\\forms.py",
   "PreviewInSolutionExplorer": false
 }
