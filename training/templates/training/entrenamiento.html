@@ -12,34 +12,15 @@
 <div id="content">
     <form action="/sesionEntrenamiento.html" method="post">
         {% csrf_token %}
-        <div>
-            <p class="text1">Modo de tiempo de reacción</p>
-            <select name="Reaccion" id="reaccion" class="drop_menu">
-                <option class="option">Sencillo</option>
-                <option class="option">Complejo</option>
-            </select>
+        {% for field in form %}
+        <div class="input-w">
+            <label class="text1" for="{{ field.name }}">{{ field.label }}</label>
+            <p>{{ field }}</p>
         </div>
-        <div>
-            <p class="text1">Tiempo (Segundos)</p>
-            <select name="Tiempo" id="tiempo" class="drop_menu">
-                <option class="option">30</option>
-                <option class="option">45</option>
-                <option class="option">60</option>
-                <option class="option">90</option>
-            </select>
-        </div>
-        <div>
-            <p class="text1">Módulos</p>
-            <select name="Módulo" id="modulo" class="drop_menu">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-            </select>
-        </div>
+        {% endfor %}
         <div class="subcontent">
             <a href="homepage.html"><button type="button" class="btn_return">Regresar</button></a>
-            <input type="submit" id="btn_train" onclick="startTrainning()" value="Iniciar">
+            <input type="submit" id="btn_train" value="Iniciar">
         </div>
     </form>
 </div>

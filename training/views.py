@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
-from training.forms import SignUpForm, NewPasswordForm
+from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
 
 def signup(request):
     if request.method == 'POST':
@@ -35,9 +35,7 @@ def change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = NewPasswordForm(request.user, request.POST)
-    return render(request, 'registration/change_password.html', {
-        'form': form
-    })
+    return render(request, 'registration/change_password.html', {'form': form})
 
 def login(request):
     return render(request, 'registration/login.html')
@@ -48,7 +46,14 @@ def index(request):
 
 @login_required(login_url='login/')
 def training(request):
-    return render(request, 'training/entrenamiento.html')
+    if request.method == 'POST':
+        form = TrainingDescriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sesionEntrenamiento')
+    else:
+        form = TrainingDescriptionForm()
+        return render(request, 'training/entrenamiento.html', {'form': form})
 
 @login_required(login_url='login/')
 def games(request):

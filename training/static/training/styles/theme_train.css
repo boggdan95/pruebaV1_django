@@ -28,15 +28,22 @@
 
 
 .drop_menu {
+  align-
   background: transparent;
   border: none;
   font-size: 14px;
   height: 29px;
   padding: 5px;
   /* If you add too much padding here, the options won't show in IE */
-  width: 268px;
+  width: 250px;
  -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
   background-color: #e6ee96;
+}
+
+.input-w label, .input-w p {
+    float: none; /* if you had floats before? otherwise inline-block will behave differently */
+    display: inline-block;
+    vertical-align: middle;
 }
