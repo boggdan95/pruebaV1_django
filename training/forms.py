@@ -25,11 +25,14 @@ class NewPasswordForm(UserCreationForm):
 class TrainingDescriptionForm(forms.ModelForm):
     class Meta:
        model = TrainingDescription
-       fields = ('time', 'reps','modules','is_random')
-       labels ={'time':'Tiempo','reps':'Repeticiones','modules':'Modulos','is_random':'Secuencial'}
+       fields = ('typeReaction','time', 'reps','modules','is_secuencial')
+       labels ={'typeReaction':'Tiempo de reacción','time':'Tiempo','reps':'Repeticiones','modules':'Módulos','is_secuencial':'Secuencial'}
        widgets = {
+           "typeReaction" : forms.Select(attrs={"class" : "drop_menu drop_menu_text "}),
             "time" : forms.Select(attrs={"class" : "drop_menu"}),
-            
+            "reps" : forms.Select(attrs={"class" : "drop_menu"}),
             "modules" : forms.Select(attrs={"class" : "drop_menu"}),
-
+        }
+       help_texts = {
+            'time': 'Some useful help text.',
         }

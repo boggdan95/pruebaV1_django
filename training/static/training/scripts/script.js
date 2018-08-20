@@ -54,11 +54,8 @@ function colorSelect() {
   if (document.getElementById("rdbtn2").checked) {
     moduloColor = "red";
   }
-  if (document.getElementById("rdbtn3").checked
-
-) {
+  if (document.getElementById("rdbtn3").checked) {
     moduloColor = "green";
   }
-
   console.log(moduloColor);
 }

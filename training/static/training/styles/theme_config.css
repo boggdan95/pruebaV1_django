@@ -1,17 +1,17 @@
 input[type=text],input[type=password],input[type=email]{
-    padding: 8px 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
     border-radius: 4px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 8px 10px;
 }
 
 label {
+    display: inline-block;
     font-family: 'Helvetica', 'Verdana', sans-serif;
     padding-right:10px;
-    width: 115px;
-    display: inline-block;
     text-align: right;
+    width: 115px;
 }
 
 button[type=submit], #btn_save {

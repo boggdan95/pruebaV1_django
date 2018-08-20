@@ -8,17 +8,17 @@ from django.contrib.postgres.fields import JSONField
 # Create your models here.
 
 class TrainingDescription(models.Model):
-    TIMES = ((30,'30 s'),(45,'45 s'),(60,'60 s'),(75,'75 s'),(90,'90 s'),(105,'105 s'),(120,'120 s'))
+    TIMES = ((30,'30'),(45,'45'),(60,'60'),(75,'75'),(90,'90'),(105,'105'),(120,'120'))
     MODULES = ((1,'1'),(2,'2'),(3,'3'),(4,'4'))
+    REPS = ((10,'10'),(11,'11'),(12,'12'),(13,'13'),(14,'14'),(15,'15'),(16,'16'),(17,'17'),(18,'18'),(19,'19'),(20,'20'),(21,'21'),(22,'22'),(23,'23'),(24,'24'),(25,'25'))
+    SINGLE = 'SIMPLE'
+    COMPLEX = 'COMPLEJO'
+    TYPES = ((SINGLE,'Simple'),(COMPLEX,'Complejo'))
+    typeReaction = models.CharField(max_length=10,choices=TYPES, default=SINGLE)
     time = models.IntegerField(choices=TIMES,default=30)
-    reps = models.IntegerField(default=10,
-        validators=[
-            DecimalValidator(max_digits=2,decimal_places=1),
-            MaxValueValidator(25),
-            MinValueValidator(10)
-        ])
+    reps = models.IntegerField(choices=REPS,default=10)
     modules = models.IntegerField(choices=MODULES,default=1)
-    is_random = models.BooleanField(default=False)
+    is_secuencial = models.BooleanField(default=True)
 
 class TrainingSession(models.Model):
     time = models.DateTimeField(auto_now_add=True)
@@ -30,6 +30,10 @@ class TrainingSession(models.Model):
 
 class PresetTrainingSession(models.Model):
     name = models.TextField(default='preset training')
+    SINGLE = 'SIMPLE'
+    COMPLEX = 'COMPLEJO'
+    TYPES = ((SINGLE,'Simple'),(COMPLEX,'Complejo'))
+    typeReaction = models.CharField(max_length=10,choices=TYPES, default=SINGLE)
     instructions = models.TextField();
     time = models.IntegerField(default=30)
     reps = models.IntegerField(default=10)
@@ -38,6 +42,6 @@ class PresetTrainingSession(models.Model):
             MaxValueValidator(4),
             MinValueValidator(1)
         ])
-    is_random = models.BooleanField(default=False)
+    is_secuencial = models.BooleanField(default=True)
 
 

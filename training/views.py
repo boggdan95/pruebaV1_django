@@ -74,3 +74,7 @@ def contact(request):
 @login_required(login_url='login/')
 def sessionTraining(request):
     return render(request, 'training/sesionEntrenamiento.html')
+
+@login_required(login_url='login/')
+def colorConfiguration(request):
+    return render(request, 'training/colors.html')
