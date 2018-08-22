@@ -24,7 +24,7 @@ class TrainingSession(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='User', null=True)
     description = models.ForeignKey(TrainingDescription, on_delete=models.CASCADE)
-    results = JSONField() 
+    results = JSONField(null=True, blank=True) 
 
 
 
@@ -34,7 +34,7 @@ class PresetTrainingSession(models.Model):
     COMPLEX = 'COMPLEJO'
     TYPES = ((SINGLE,'Simple'),(COMPLEX,'Complejo'))
     typeReaction = models.CharField(max_length=10,choices=TYPES, default=SINGLE)
-    instructions = models.TextField();
+    instructions = models.TextField()
     time = models.IntegerField(default=30)
     reps = models.IntegerField(default=10)
     modules = models.IntegerField(default=1,
@@ -44,4 +44,25 @@ class PresetTrainingSession(models.Model):
         ])
     is_secuencial = models.BooleanField(default=True)
 
+class Question(models.Model):
+    question_text = models.TextField(default='Pregunta')
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer_text = models.TextField(default='Respuesta')
+    
+
+    def __str__(self):
+        return 
+
+    def __unicode__(self):
+        return 
+
+    
+
+    def __str__(self):
+        return 
+
+    def __unicode__(self):
+        return 
 

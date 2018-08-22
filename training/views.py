@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
+from .models import PresetTrainingSession, TrainingSession
 
 def signup(request):
     if request.method == 'POST':
@@ -57,7 +58,13 @@ def training(request):
 
 @login_required(login_url='login/')
 def games(request):
-    return render(request, 'training/games.html')
+    games_list = PresetTrainingSession.objects.order_by('id')
+    return render(request, 'training/games.html', {'games_list':games_list} )
+
+@login_required(login_url='login/')
+def instrucciones(request):
+    games_list = PresetTrainingSession.objects.order_by('id')
+    return render(request, 'training/instrucciones.html', {'games_list':games_list} )
 
 @login_required(login_url='login/')
 def configuration(request):
@@ -78,3 +85,18 @@ def sessionTraining(request):
 @login_required(login_url='login/')
 def colorConfiguration(request):
     return render(request, 'training/colors.html')
+
+@login_required(login_url='login/')
+def createSession(request):
+    form = TrainingDescriptionForm(request.POST)
+    if form.is_valid():
+        description = form.save(commit=True)
+        session = TrainingSession(
+            user=request.user,
+            description=description,
+        )
+        session.save()
+
+        #TODO: REDIRECT
+
+    #TODO: SHOW ERROR

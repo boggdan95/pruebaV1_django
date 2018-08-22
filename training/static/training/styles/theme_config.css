@@ -15,16 +15,16 @@ label {
 }
 
 button[type=submit], #btn_save {
-  background: #3cb0fd;
-  -webkit-border-radius: 28;
   -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  background: #3cb0fd;
   border-radius: 28px;
-  font-family: Courier New;
-  color: #ffffff;
-  font-size: 26px;
-  position: relative;
   border: solid #000000 3px;
+  color: #ffffff;
+  font-family: Courier New;
+  font-size: 26px;
   padding: 13px 40px 11px 40px;
+  position: relative;
 }
 
 button[type=submit]:hover, #btn_save:hover {
@@ -38,41 +38,40 @@ button[type=submit]:hover, #btn_save:hover {
 /* Hide the browser's default radio button */
 .control-group {
   display: inline-block;
-  vertical-align: top;
-  text-align: left;
-  padding: 30px;
-  width: 200px;
   height: 100px;
   margin: 10px;
+  padding: 30px;
+  text-align: left;
+  vertical-align: top;
+  width: 200px;
 }
 
 .radiobtn {
   display: none;
 }
 .buttons {
-  margin-left: -40px;
   background: none;
+  margin-left: -40px;
 }
 .buttons .li_rdn {
   display: block;
 }
 .buttons .li_rdn label{
+  left: -25px;
   padding-left: 30px;
   position: relative;
-  left: -25px;
 }
 .buttons .li_rdn label:hover {
   cursor: pointer;
 }
 .buttons .li_rdn span {
+  background: #fff;
+  border: 2px solid #ccc;
   display: inline-block;
+  height: 18px;
   position: relative;
   top: 5px;
-  border: 2px solid #ccc;
-  /*border-radius: 50%;*/
   width: 18px;
-  height: 18px;
-  background: #fff;
 }
 #rdbtn1:checked + #span_1::before{
   content: '';

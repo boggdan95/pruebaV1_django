@@ -9,7 +9,8 @@
     "\\training\\static\\training\\scripts",
     "\\training\\static\\training\\styles",
     "\\training\\templates",
-    "\\training\\templates\\training"
+    "\\training\\templates\\registration"
   ],
+  "SelectedNode": "\\pruebaV1_django\\settings.py",
   "PreviewInSolutionExplorer": false
 }

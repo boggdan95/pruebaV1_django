@@ -2,10 +2,6 @@
 **********************ENTRENAMIENTO*****************************
 ***************************************************************/
 
-.subcontent{
- padding: 40px 40px 11px 40px;
-}
-
 #btn_train {
   background: #3cb0fd;
   display: inline-block;
@@ -46,4 +42,10 @@
     float: none; /* if you had floats before? otherwise inline-block will behave differently */
     display: inline-block;
     vertical-align: middle;
+}
+
+#id_is_secuencial{
+    height:20px;
+    overflow:hidden;
+    width:20px;
 }
