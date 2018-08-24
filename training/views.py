@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required 
@@ -7,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
 from .models import PresetTrainingSession, TrainingSession, GameSession
+from django.forms import model_to_dict
 
 def signup(request):
     if request.method == 'POST':
@@ -79,10 +82,6 @@ def contact(request):
     return render(request, 'training/contact.html')
 
 @login_required(login_url='login/')
-def sessionTraining(request):
-    return render(request, 'training/sesionEntrenamiento.html')
-
-@login_required(login_url='login/')
 def colorConfiguration(request):
     return render(request, 'training/colors.html')
 
@@ -96,10 +95,21 @@ def createSession(request):
             description=description,
         )
         session.save()
+        data_of_session = model_to_dict(session)
+        print(data_of_session)
+        description_of_session = model_to_dict(description)
+        print(description_of_session)
 
         #TODO: REDIRECT
+        return redirect(reverse(sessionTraining, args=(session.id, data_of_session, description_of_session)))
 
     #TODO: SHOW ERROR
+
+@login_required(login_url='login/')
+def sessionTraining(request, session_id ,data_of_session, description_of_session):
+    session_pk = session_id
+    return render(request, 'training/sesionEntrenamiento.html', )
+
 
 @login_required(login_url='login/')
 def createGame(request):
