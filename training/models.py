@@ -44,25 +44,17 @@ class PresetTrainingSession(models.Model):
         ])
     is_secuencial = models.BooleanField(default=True)
 
+class GameSession(models.Model):
+    time = models.DateField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_user', null=True)
+    description = models.ForeignKey(PresetTrainingSession, on_delete=models.CASCADE)
+    results = JSONField(blank=True, null=True)
+    
+
 class Question(models.Model):
     question_text = models.TextField(default='Pregunta')
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer_text = models.TextField(default='Respuesta')
-    
-
-    def __str__(self):
-        return 
-
-    def __unicode__(self):
-        return 
-
-    
-
-    def __str__(self):
-        return 
-
-    def __unicode__(self):
-        return 
 

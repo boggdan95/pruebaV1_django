@@ -228,3 +228,26 @@ ul {
 .bold {
   font-weight: bold;
 }
+
+.alert {
+  background-color: #f44336;
+  color: white;
+  padding: 20px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.closebtn {
+  color: white;
+  cursor: pointer;
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 20px;
+  margin-left: 15px;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

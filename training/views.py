@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
-from .models import PresetTrainingSession, TrainingSession
+from .models import PresetTrainingSession, TrainingSession, GameSession
 
 def signup(request):
     if request.method == 'POST':
@@ -59,7 +59,7 @@ def training(request):
 @login_required(login_url='login/')
 def games(request):
     games_list = PresetTrainingSession.objects.order_by('id')
-    return render(request, 'training/games.html', {'games_list':games_list} )
+    return render(request, 'training/games.html', {'games_list':games_list})
 
 @login_required(login_url='login/')
 def instrucciones(request):
@@ -100,3 +100,27 @@ def createSession(request):
         #TODO: REDIRECT
 
     #TODO: SHOW ERROR
+
+@login_required(login_url='login/')
+def createGame(request):
+    games_list = PresetTrainingSession.objects.all()
+    game = request.POST.get('group_radio')
+    print(game)
+    if request.method == 'POST':
+        if game != None:
+            session = GameSession
+        else:
+            messages.warning(request, '¡Debes seleccionar un juego!')
+            return render(request, 'training/games.html', {'games_list':games_list})
+    # if form.is_valid():
+    #     description = form.save(commit=True)
+    #     session = TrainingSession(
+    #         user=request.user,
+    #         description=description,
+    #     )
+    #     session.save()
+
+        #TODO: REDIRECT
+
+    #TODO: SHOW ERROR
+

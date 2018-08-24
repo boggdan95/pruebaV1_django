@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django.contrib.auth.models import User
-from .models import TrainingDescription
+from .models import TrainingDescription, PresetTrainingSession
 
 
 
@@ -36,3 +36,4 @@ class TrainingDescriptionForm(forms.ModelForm):
        help_texts = {
             'time': 'Some useful help text.',
         }
+
