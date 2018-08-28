@@ -17,6 +17,10 @@
         <p id="timer"></p>
         <div id="backPanel" class="subcontent">
             {% csrf_token %}
+            <script>
+                var description =  JSON.parse('{% autoescape off %}{{ description_of_session }}{% endautoescape %}');
+                console.log("description", description);
+            </script>
         </div>
     </div>
 </div>

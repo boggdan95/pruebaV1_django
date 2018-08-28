@@ -10,6 +10,8 @@ from django.contrib.auth.forms import SetPasswordForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
 from .models import PresetTrainingSession, TrainingSession, GameSession
 from django.forms import model_to_dict
+import json
+
 
 def signup(request):
     if request.method == 'POST':
@@ -95,20 +97,21 @@ def createSession(request):
             description=description,
         )
         session.save()
-        data_of_session = model_to_dict(session)
-        print(data_of_session)
-        description_of_session = model_to_dict(description)
-        print(description_of_session)
-
-        #TODO: REDIRECT
-        return redirect(reverse(sessionTraining, args=(session.id, data_of_session, description_of_session)))
+    
+        return redirect('sesionEntrenamiento/{}'.format(session.id))
 
     #TODO: SHOW ERROR
 
 @login_required(login_url='login/')
-def sessionTraining(request, session_id ,data_of_session, description_of_session):
+def sessionTraining(request, session_id):
     session_pk = session_id
-    return render(request, 'training/sesionEntrenamiento.html', )
+    session = TrainingSession.objects.get(pk=session_pk)
+    data_of_session = model_to_dict(session)
+    description_of_session = model_to_dict(session.description)
+    return render(request, 'training/sesionEntrenamiento.html', {
+        'data_of_session': json.dumps(data_of_session),
+        'description_of_session': json.dumps(description_of_session)
+    } )
 
 
 @login_required(login_url='login/')
