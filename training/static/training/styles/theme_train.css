@@ -1,27 +1,102 @@
-/***************************************************************
-**********************ENTRENAMIENTO*****************************
-***************************************************************/
-
-#btn_train {
-  background: #3cb0fd;
-  display: inline-block;
+#timer{
   margin: auto;
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  font-family: Courier New;
-  color: #ffffff;
-  font-size: 26px;
-  position: relative;
-  border: solid #000000 3px;
-  padding: 13px 40px 11px 40px;
+  text-align: center;
 }
 
-#btn_train:hover {
-  background: #33cc33;
+#results_panel{
+  height: 200px;
+  width: 60%;
+  overflow: auto;
+  margin: auto;
+}
+
+
+#hide_description{
+  visibility: hidden;
+  height: 0px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: auto;
+  background-color: #fff;
+  table-layout: auto;
+}
+
+th, td {
+  white-space: nowrap;
+  text-align: center;
+}
+
+#button_start {
+  -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  background: #009933;
+  border-radius: 28px;
+  border: solid #000000 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-family: Courier New;
+  font-size: 26px;
+  margin: auto;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+}
+
+#button_start:hover {
+  background: #00cc00;
   text-decoration: none;
 }
 
+#btn_home{
+  -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  background: #ff3300;
+  border-radius: 28px;
+  border: solid #000000 3px;
+  color: #ffffff;
+  display: none;
+  font-family: Courier New;
+  font-size: 26px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: auto;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+  /* visibility: hidden; */
+}
+
+#btn_home:hover{
+  background: #660033;
+  text-decoration: none;
+}
+
+#btn_results{
+  -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  background: #136cf9;
+  border-radius: 28px;
+  border: solid #000000 3px;
+  color: #ffffff;
+  display: none;
+  font-family: Courier New;
+  font-size: 26px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  margin: auto;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+  /* visibility: hidden; */
+}
+
+#btn_results:hover{
+  background: #33ccff;
+  text-decoration: none;
+}
 
 .drop_menu {
   text-align: right;
@@ -38,10 +113,10 @@
   background-color: #e6ee96;
 }
 
-    .input-w label, .input-w p {
-    float: none; /* if you had floats before? otherwise inline-block will behave differently */
-    display: inline-block;
-    vertical-align: middle;
+  .input-w label, .input-w p {
+  float: none; /* if you had floats before? otherwise inline-block will behave differently */
+  display: inline-block;
+  vertical-align: middle;
 }
 
 #id_is_secuencial{

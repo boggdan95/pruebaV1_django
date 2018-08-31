@@ -1,3 +1,23 @@
+#button_start_G {
+  -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  background: #0099ff;
+  border-radius: 28px;
+  border: solid #000000 3px;
+  color: #ffffff;
+  display: inline-block;
+  font-family: Courier New;
+  font-size: 26px;
+  margin: auto;
+  padding: 10px 10px 10px 10px;
+  position: relative;
+}
+
+#button_start_G:hover {
+  background: #66ccff;
+  text-decoration: none;
+}
+
 .button_game {
   background: #009933;
   display: inline-block;
