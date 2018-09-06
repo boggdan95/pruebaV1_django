@@ -137,3 +137,14 @@ def createGame(request):
 
     #TODO: SHOW ERROR
 
+@login_required(login_url='login/')
+def sessionGame(request, session_id):
+    session_pk = session_id
+    session = GameSession.objects.get(pk=session_pk)
+    name_of_game = GameSession.objects.get()
+    data_of_session = model_to_dict(session)
+    description_of_session = model_to_dict(session.description)
+    return render(request, 'training/sesionJuego.html', {
+        'data_of_session': json.dumps(data_of_session),
+        'description_of_session': json.dumps(description_of_session)    
+    } )

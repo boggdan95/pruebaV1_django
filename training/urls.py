@@ -19,5 +19,6 @@ urlpatterns = [
     re_path('createSession',views.createSession, name='createSession'),
     re_path('createGame',views.createGame, name='createGame'),
     path('sesionEntrenamiento/<int:session_id>/', views.sessionTraining, name='sessionTraining'),
+    path('sesionJuego/<int:session_id>/', views.sessionGame, name='sessionGame'),
     re_path('colors', views.colorConfiguration , name='colorConfiguration')
 ]

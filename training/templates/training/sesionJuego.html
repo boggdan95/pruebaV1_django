@@ -1,0 +1,39 @@
+﻿{% extends "base.html" %}
+
+{% block static %}
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme_train.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{% static 'training/scripts/script.js' %}"></script>
+{% endblock static %}
+{% block content %}
+<div class="main">
+    <div id="header">
+        <h1 class="title">Quick Trainner</h1>
+        <p class="text1">{{user}}, has iniciado tu entrenamiento</p>
+    </div>
+    <div id="results_panel" class="content">
+            <p id="timer" class="text2"></p>
+        {% csrf_token %}
+        
+        <script>
+            var description =  JSON.parse('{% autoescape off %}{{ description_of_session }}{% endautoescape %}');
+            console.log("description", description);
+        </script>
+        <p id="hide_description">{% autoescape off %}{{ description_of_session }}{% endautoescape %}</p>
+        <table id="results_table" class="text2">
+            <th>Intento No.</th>
+            <th>Tiempo de reacción</th> 
+            <th>Acierto/Fallo</th>
+        </table>
+    </div>
+    <div class="subcontent">
+        <a href="homepage.html" style="text-decoration:none"><button type="button" id="btn_home">Inicio</button></a>
+        <input type="button" id="button_start" value="Iniciar" onclick="startTraining()">
+        <a href="resultados.html" style="text-decoration:none"><button type="button" id="btn_results">Detalle de Resultados</button></a>
+    </div>
+</div>
+{% endblock content %}
+{% block bar %}
+{% endblock bar %}
