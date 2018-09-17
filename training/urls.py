@@ -20,5 +20,7 @@ urlpatterns = [
     re_path('createGame',views.createGame, name='createGame'),
     path('sesionEntrenamiento/<int:session_id>/', views.sessionTraining, name='sessionTraining'),
     path('sesionJuego/<int:session_id>/', views.sessionGame, name='sessionGame'),
-    re_path('colors', views.colorConfiguration , name='colorConfiguration')
+    re_path('colors', views.colorConfiguration , name='colorConfiguration'),
+    re_path('resultados', views.trainingResults , name='training_results'),
+    re_path('resultadosJuego', views.gameResults , name='game_results')
 ]

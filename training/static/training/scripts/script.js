@@ -1,10 +1,10 @@
-var socket = io('http://localhost:5000');
+var socket = io('http://127.0.0.1:5000');
 
 var description_decode;
-var numero;
+var numero = 1;
 
 function startTraining() {
-  numero = 0;
+  numero = 1;
   document.getElementById("button_start").style.display = "none";
   var description = document.getElementById("hide_description").textContent;
   description_decode = JSON.parse(description);
@@ -15,11 +15,11 @@ function startTraining() {
   tipo = description_decode.typeReaction;
   console.log(tiempo, secuencial, reps, modules, tipo);
   temporizador(tiempo);
-  socket.emit('entrenamiento general', tipo,tiempo,reps,modules,is_secuencial);
+  socket.emit("entrenamiento general", tipo,tiempo,reps,modules,secuencial);
 }
 
   socket.on('results', function(tiempo,mensaje){
-    introduceResults(tiempo,message);
+    introduceResults(tiempo,mensaje);
     numero = numero + 1;
   });
 

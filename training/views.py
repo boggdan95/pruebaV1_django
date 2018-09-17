@@ -92,9 +92,11 @@ def createSession(request):
     form = TrainingDescriptionForm(request.POST)
     if form.is_valid():
         description = form.save(commit=True)
+        print(description)
         session = TrainingSession(
             user=request.user,
             description=description,
+            
         )
         session.save()
     
@@ -113,28 +115,30 @@ def sessionTraining(request, session_id):
         'description_of_session': json.dumps(description_of_session)
     } )
 
+@login_required(login_url='login/')
+def trainingResults(request):
+    return render(request, 'training/resultados.html')
+
 
 @login_required(login_url='login/')
 def createGame(request):
     games_list = PresetTrainingSession.objects.all()
     game = request.POST.get('group_radio')
-    print(game)
     if request.method == 'POST':
         if game != None:
             session = GameSession
+            game_selected = PresetTrainingSession.objects.get(name=game)
+            print(game_selected)
+            print(game_selected.time)
+            session = GameSession(
+            user=request.user,
+            description=game_selected,
+            )
+            session.save()
+            return redirect('sesionJuego/{}'.format(session.id))
         else:
             messages.warning(request, '¡Debes seleccionar un juego!')
             return render(request, 'training/games.html', {'games_list':games_list})
-    # if form.is_valid():
-    #     description = form.save(commit=True)
-    #     session = TrainingSession(
-    #         user=request.user,
-    #         description=description,
-    #     )
-    #     session.save()
-
-        #TODO: REDIRECT
-
     #TODO: SHOW ERROR
 
 @login_required(login_url='login/')
@@ -148,3 +152,7 @@ def sessionGame(request, session_id):
         'data_of_session': json.dumps(data_of_session),
         'description_of_session': json.dumps(description_of_session)    
     } )
+
+@login_required(login_url='login/')
+def gameResults(request):
+    return render(request, 'training/resultadosJuego.html')

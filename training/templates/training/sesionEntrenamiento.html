@@ -4,7 +4,7 @@
     {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme_train.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
-<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:5000/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="{% static 'training/scripts/script.js' %}"></script>
 {% endblock static %}
 {% block content %}
@@ -29,7 +29,7 @@
         </table>
     </div>
     <div class="subcontent">
-        <a href="homepage.html" style="text-decoration:none"><button type="button" id="btn_home">Inicio</button></a>
+        <a href="homepage.html" style="text-decoration:none"><button type="button" id="btn_home">Página de Inicio</button></a>
         <input type="button" id="button_start" value="Iniciar" onclick="startTraining()">
         <a href="resultados.html" style="text-decoration:none"><button type="button" id="btn_results">Detalle de Resultados</button></a>
     </div>
