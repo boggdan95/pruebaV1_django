@@ -14,14 +14,17 @@
         <p class="text1">{{user}}, has iniciado tu entrenamiento</p>
     </div>
     <div id="results_panel" class="content">
-            <p id="timer" class="text2"></p>
-        {% csrf_token %}
-        
+            <p id="timer" class="text2"></p>     
         <script>
             var description =  JSON.parse('{% autoescape off %}{{ description_of_session }}{% endautoescape %}');
             console.log("description", description);
         </script>
-        <p id="hide_description">{% autoescape off %}{{ description_of_session }}{% endautoescape %}</p>
+         <form action="/saveTrainingResults" id="results" method="POST">
+            {% csrf_token %}
+            <p id="session_description" class="hide_description">{% autoescape off %}{{ data_of_session }}{% endautoescape %}</p>
+            <p id="generate_description" class="hide_description">{% autoescape off %}{{ description_of_session }}{% endautoescape %}</p>
+            <input type="hidden" value="" id="generate_results" name="generate_results" class="hide_description"></p>
+        </form>
         <table id="results_table" class="text2">
             <th>Intento No.</th>
             <th>Tiempo de reacción</th> 
@@ -30,6 +33,7 @@
     </div>
     <div class="subcontent">
         <a href="homepage.html" style="text-decoration:none"><button type="button" id="btn_home">Página de Inicio</button></a>
+        <input type="button" id="save_results" value="Guardar resultados" onclick="postResults()">
         <input type="button" id="button_start" value="Iniciar" onclick="startTraining()">
         <a href="resultados.html" style="text-decoration:none"><button type="button" id="btn_results">Detalle de Resultados</button></a>
     </div>

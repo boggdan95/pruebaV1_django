@@ -6,7 +6,7 @@ var numero = 1;
 function startTraining() {
   numero = 1;
   document.getElementById("button_start").style.display = "none";
-  var description = document.getElementById("hide_description").textContent;
+  var description = document.getElementById("generate_description").textContent;
   description_decode = JSON.parse(description);
   tiempo = description_decode.time;
   secuencial = description_decode.is_secuencial;
@@ -18,10 +18,36 @@ function startTraining() {
   socket.emit("entrenamiento general", tipo,tiempo,reps,modules,secuencial);
 }
 
+function startGame() {
+  numero = 1;
+  document.getElementById("button_start").style.display = "none";
+  var description = document.getElementById("generate_description").textContent;
+  description_decode = JSON.parse(description);
+  tiempo = description_decode.time;
+  secuencial = description_decode.is_secuencial;
+  reps = description_decode.reps;
+  modules = description_decode.modules;
+  tipo = description_decode.typeReaction;
+  juego = description_decode.name;
+  if (juego === 'Juego 1'){
+    var no_random = randomInt(10,25);
+    socket.emit(juego,no_random);
+  }
+  else{
+    socket.emit(juego);
+  }
+}
+
+//Recepcion de canales de Socket.io y sus acciones correspondientes 
+
   socket.on('results', function(tiempo,mensaje){
     introduceResults(tiempo,mensaje);
     numero = numero + 1;
   });
+
+  socket.on('entrenamiento finalizado', function(){
+    getCellValues();
+  })
 
 //Insertar resultados
 function introduceResults(tiempo,message) {
@@ -35,14 +61,37 @@ function introduceResults(tiempo,message) {
   cell3.innerHTML = message;
 }
 
+function getCellValues() {
+  var no = [];
+  var times = [];
+  var result = [];
+  var table = document.getElementById('results_table');
+  for (var r = 0, n = table.rows.length; r < n; r++) {
+      for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+        if(c === 0){
+           no.push(table.rows[r].cells[c].innerHTML);   
+        }
+        if(c === 1){
+            times.push(table.rows[r].cells[c].innerHTML); 
+        }
+        if (c === 2){
+            result.push(table.rows[r].cells[c].innerHTML); 
+        }
 
-
-//Generar valores para los entrenamientos preprogramados
-function game(value){
-  if (value === 1){
-    console.log("Juego 1");
-    socket.emit('entrenamiento1',randomInt(10,25));
+      }
   }
+
+  var results = {int:no, tiempos:times, resultado:result};
+  var myJSON = JSON.stringify(results);
+  document.getElementById('generate_results').value = myJSON;
+}
+
+
+function postResults() {
+  document.getElementById("results").submit();
+  document.getElementById("save_results").style.display = "none";
+  document.getElementById("btn_home").style.display = "block";
+  document.getElementById("btn_results").style.display = "block";
 }
 
 //Obtener el color seleccionado para los módulos
@@ -81,8 +130,7 @@ function temporizador(time){
     if (seconds <= 00 && minutes <= 0) {
       clearInterval(x);
       document.getElementById("timer").innerHTML = "Entrenamiento finalizado";
-      document.getElementById("btn_home").style.display = "block";
-      document.getElementById("btn_results").style.display = "block";
+      document.getElementById("save_results").style.display = "block";
     }
 
   },1000);

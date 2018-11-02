@@ -96,7 +96,6 @@ def createSession(request):
         session = TrainingSession(
             user=request.user,
             description=description,
-            
         )
         session.save()
     
@@ -128,8 +127,6 @@ def createGame(request):
         if game != None:
             session = GameSession
             game_selected = PresetTrainingSession.objects.get(name=game)
-            print(game_selected)
-            print(game_selected.time)
             session = GameSession(
             user=request.user,
             description=game_selected,
@@ -139,13 +136,12 @@ def createGame(request):
         else:
             messages.warning(request, '¡Debes seleccionar un juego!')
             return render(request, 'training/games.html', {'games_list':games_list})
-    #TODO: SHOW ERROR
+
 
 @login_required(login_url='login/')
 def sessionGame(request, session_id):
     session_pk = session_id
     session = GameSession.objects.get(pk=session_pk)
-    name_of_game = GameSession.objects.get()
     data_of_session = model_to_dict(session)
     description_of_session = model_to_dict(session.description)
     return render(request, 'training/sesionJuego.html', {
@@ -156,3 +152,38 @@ def sessionGame(request, session_id):
 @login_required(login_url='login/')
 def gameResults(request):
     return render(request, 'training/resultadosJuego.html')
+
+
+@login_required(login_url='login/')
+def saveTrainingResults(request):
+    results_training = request.POST.get('generate_results')
+    print(results_training)
+    # session_pk = session_id
+    # print(session_pk)
+    # session = TrainingSession.objects.get(pk=session_pk)
+    # if request.method == 'POST':
+    #     if session != None:
+    #         session = TrainingSession(
+    #         results=results_training
+    #         )
+    #         session.save()
+    return HttpResponse(status=204)
+    #     else:
+    #         return HttpResponse(status=400)
+
+@login_required(login_url='login/')
+def saveGameResults(request):
+    results_game = request.POST.get('generate_results')
+    print(results_game)
+    session_pk = session_id
+    print(session_pk)
+    game = GameSession.objects.get(pk=session_pk)
+    if request.method == 'POST':
+        if game != None:
+            game = GameSession(
+            results=results_training
+            )
+            session.save()
+            return HttpResponse(status=204)
+        else:
+            return HttpResponse(status=400)    
