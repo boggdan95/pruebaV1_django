@@ -6,103 +6,22 @@
 <link rel="stylesheet" type="text/css" href="{% static 'training/styles/theme.css' %}">
 <script src="http://127.0.0.1:5000/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="{% static 'training/scripts/script.js' %}"></script>
-<script type="text/javascript" src="{% static 'training/scripts/Chart.js' %}"></script>
+<script type="text/javascript" src="{% static 'training/scripts/canvasjs.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'training/scripts/graphics.js' %}"></script>
 {% endblock static %}
 {% block content %}
 <div class="main">
     <div id="header">
         <h1 class="title">Quick Trainner</h1>
-        <p class="text1">{{user}}, has iniciado tu entrenamiento</p>
+        <p class="text1">{{user}}, estos son los resultados de tu entrenamiento</p>
+        <p id="session_data" class="hide_description">{% autoescape off %}{{ data_of_session }}{% endautoescape %}</p>
     </div>
-    <div id="results_panel" class="content">
-        <div style="width:75%">
-            <canvas id="canvas"></canvas>
-        </div>
-        <button id="randomizeData">Randomize Data</button>
-        <script>
-            var color = Chart.helpers.color;
-            var scatterChartData = {
-                datasets: [{
-                    label: 'My First dataset',
-                    borderColor: window.chartColors.red,
-                    backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
-                    data: [{
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }]
-                }, {
-                    label: 'My Second dataset',
-                    borderColor: window.chartColors.blue,
-                    backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                    data: [{
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }, {
-                        x: randomScalingFactor(),
-                        y: randomScalingFactor(),
-                    }]
-                }]
-            };
-            window.onload = function() {
-                var ctx = document.getElementById('canvas').getContext('2d');
-                window.myScatter = Chart.Scatter(ctx, {
-                    data: scatterChartData,
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Chart.js Scatter Chart'
-                        },
-                    }
-                });
-            };
-            document.getElementById('randomizeData').addEventListener('click', function() {
-                scatterChartData.datasets.forEach(function(dataset) {
-                    dataset.data = dataset.data.map(function() {
-                        return {
-                            x: randomScalingFactor(),
-                            y: randomScalingFactor()
-                        };
-                    });
-                });
-                window.myScatter.update();
-            });
-        </script>
+    <div id="content">
+    <div id="chartContainer" style="height: 300px; max-width: 600px; margin: 0px auto;"></div>
+    <div id="resumeResults" style="height: 25px; max-width: 600px; margin: 0px auto; padding-top: 1%"></div>
     </div>
-    <div class="subcontent">
-        <a href="homepage.html" style="text-decoration:none"><button type="button" id="btn_home">Página de Inicio</button></a>
+    <div class="subcontent" style="padding: 0px 40px 11px 40px">
+        <a href="homepage.html" style="text-decoration:none"><button type="button" class="btn_return">Página de Inicio</button></a>
     </div>
 </div>
 {% endblock content %}

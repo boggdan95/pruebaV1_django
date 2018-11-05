@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import SetPasswordForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
-from .models import PresetTrainingSession, TrainingSession, GameSession
+from .models import PresetTrainingSession, TrainingSession, GameSession, CaptureSession
 from django.forms import model_to_dict
 import json
 
@@ -72,6 +72,10 @@ def instrucciones(request):
     return render(request, 'training/instrucciones.html', {'games_list':games_list} )
 
 @login_required(login_url='login/')
+def capture_mode(request):
+    return render(request, 'training/modo_captura.html')
+
+@login_required(login_url='login/')
 def configuration(request):
     return render(request, 'training/config.html')
 
@@ -116,8 +120,18 @@ def sessionTraining(request, session_id):
 
 @login_required(login_url='login/')
 def trainingResults(request):
-    return render(request, 'training/resultados.html')
+    session_pk = request.POST.get('session_id')
+    print(session_pk)
+    try:
+        session = TrainingSession.objects.get(pk=session_pk)
+        data_of_session = model_to_dict(session)
+        return render(request, 'training/resultados.html', {
+        'data_of_session': json.dumps(data_of_session),
+        } )
+    except TrainingSession.DoesNotExist:
+        return False
 
+    
 
 @login_required(login_url='login/')
 def createGame(request):
@@ -151,38 +165,84 @@ def sessionGame(request, session_id):
 
 @login_required(login_url='login/')
 def gameResults(request):
-    return render(request, 'training/resultadosJuego.html')
+    session_pk = request.POST.get('session_id')
+    session = GameSession.objects.get(pk=session_pk)
+    data_of_session = model_to_dict(session)
+    return render(request, 'training/resultadosJuego.html', {
+        'data_of_session': json.dumps(data_of_session),
+    } )
 
+@login_required(login_url='login/')
+def createCapture(request):
+        session = CaptureSession(
+            user=request.user,
+        )
+        session.save()
+    
+        return redirect('sesionCaptura/{}'.format(session.id))
+
+    #TODO: SHOW ERROR
+
+@login_required(login_url='login/')
+def sessionCapture(request, session_id):
+    session_pk = session_id
+    session = CaptureSession.objects.get(pk=session_pk)
+    data_of_session = model_to_dict(session)
+    return render(request, 'training/sesionCaptura.html', {
+        'data_of_session': json.dumps(data_of_session),
+    } )
+
+
+@login_required(login_url='login/')
+def captureResults(request):
+    session_pk = request.POST.get('session_id')
+    session = CaptureSession.objects.get(pk=session_pk)
+    data_of_session = model_to_dict(session)
+    return render(request, 'training/resultadosCaptura.html', {
+        'data_of_session': json.dumps(data_of_session),
+    } )
 
 @login_required(login_url='login/')
 def saveTrainingResults(request):
     results_training = request.POST.get('generate_results')
-    print(results_training)
-    # session_pk = session_id
-    # print(session_pk)
-    # session = TrainingSession.objects.get(pk=session_pk)
-    # if request.method == 'POST':
-    #     if session != None:
-    #         session = TrainingSession(
-    #         results=results_training
-    #         )
-    #         session.save()
-    return HttpResponse(status=204)
-    #     else:
-    #         return HttpResponse(status=400)
+    results_to_store = json.loads(json.dumps(results_training))
+    session_pk = request.POST.get('session_id')
+    session = TrainingSession.objects.get(pk=session_pk)
+    if request.method == 'POST':
+        if session != None:
+            session.results = results_to_store
+            session.save()
+            data_of_session = model_to_dict(session)
+            return render(request, 'training/entrenamientoGuardado.html', {
+                'data_of_session': json.dumps(data_of_session),
+            } )
+        else:
+            return HttpResponse(status=400)
 
 @login_required(login_url='login/')
 def saveGameResults(request):
     results_game = request.POST.get('generate_results')
-    print(results_game)
-    session_pk = session_id
-    print(session_pk)
+    results_to_store = json.loads(json.dumps(results_game))
+    session_pk = request.POST.get('session_id')
     game = GameSession.objects.get(pk=session_pk)
     if request.method == 'POST':
         if game != None:
-            game = GameSession(
-            results=results_training
-            )
+            game.results = results_to_store
+            game.save()
+            return HttpResponse(status=204)
+        else:
+            return HttpResponse(status=400)    
+
+
+@login_required(login_url='login/')
+def saveCaptureResults(request):
+    results_capture = request.POST.get('generate_results')
+    results_to_store = json.loads(json.dumps(results_capture))
+    session_pk = request.POST.get('session_id')
+    session = CaptureSession.objects.get(pk=session_pk)
+    if request.method == 'POST':
+        if session != None:
+            session.results = results_to_store
             session.save()
             return HttpResponse(status=204)
         else:

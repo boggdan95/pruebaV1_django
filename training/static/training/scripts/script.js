@@ -8,6 +8,10 @@ function startTraining() {
   document.getElementById("button_start").style.display = "none";
   var description = document.getElementById("generate_description").textContent;
   description_decode = JSON.parse(description);
+  var session = document.getElementById("session_description").textContent;
+  session_decode = JSON.parse(session);
+  id = session_decode.id;
+  document.getElementById('session_id').value = id;
   tiempo = description_decode.time;
   secuencial = description_decode.is_secuencial;
   reps = description_decode.reps;
@@ -23,6 +27,10 @@ function startGame() {
   document.getElementById("button_start").style.display = "none";
   var description = document.getElementById("generate_description").textContent;
   description_decode = JSON.parse(description);
+  var session = document.getElementById("session_description").textContent;
+  session_decode = JSON.parse(session);
+  id = session_decode.id;
+  document.getElementById('session_id').value = id;
   tiempo = description_decode.time;
   secuencial = description_decode.is_secuencial;
   reps = description_decode.reps;
@@ -36,6 +44,12 @@ function startGame() {
   else{
     socket.emit(juego);
   }
+}
+
+function startCapture(){
+  numero = 1;
+  document.getElementById("button_start").style.display = "none";
+  socket.emit('modo captura');
 }
 
 //Recepcion de canales de Socket.io y sus acciones correspondientes 
@@ -81,7 +95,7 @@ function getCellValues() {
       }
   }
 
-  var results = {int:no, tiempos:times, resultado:result};
+  var results = {numero:no, tiempos:times, resultado:result};
   var myJSON = JSON.stringify(results);
   document.getElementById('generate_results').value = myJSON;
 }
@@ -89,9 +103,6 @@ function getCellValues() {
 
 function postResults() {
   document.getElementById("results").submit();
-  document.getElementById("save_results").style.display = "none";
-  document.getElementById("btn_home").style.display = "block";
-  document.getElementById("btn_results").style.display = "block";
 }
 
 //Obtener el color seleccionado para los módulos

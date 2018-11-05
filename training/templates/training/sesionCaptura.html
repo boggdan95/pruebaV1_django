@@ -15,10 +15,9 @@
     </div>
     <div id="results_panel" class="content">
             <p id="timer" class="text2"></p>     
-         <form action="/saveTrainingResults" id="results" method="POST">
+         <form action="/saveCaptureResults" id="results" method="POST">
             {% csrf_token %}
             <p id="session_description" class="hide_description">{% autoescape off %}{{ data_of_session }}{% endautoescape %}</p>
-            <p id="generate_description" class="hide_description">{% autoescape off %}{{ description_of_session }}{% endautoescape %}</p>
             <input type="hidden" value="" id="generate_results" name="generate_results" class="hide_description">
             <input type="hidden" value="" id="session_id" name="session_id" class="hide_description"></p>
         </form>
@@ -30,7 +29,7 @@
     </div>
     <div class="subcontent">
         <input type="button" id="save_results" value="Guardar resultados" onclick="postResults()">
-        <input type="button" id="button_start" value="Iniciar" onclick="startTraining()">
+        <input type="button" id="button_start" value="Iniciar" onclick="startCapture()">
     </div>
 </div>
 {% endblock content %}

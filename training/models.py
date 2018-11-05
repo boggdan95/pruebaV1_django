@@ -51,6 +51,12 @@ class GameSession(models.Model):
     results = JSONField(blank=True, null=True)
     
 
+class CaptureSession(models.Model):
+    time = models.DateField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='free_user', null=True)
+    results = JSONField(blank=True, null=True)
+
+
 class Question(models.Model):
     question_text = models.TextField(default='Pregunta')
 

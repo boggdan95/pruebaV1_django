@@ -15,8 +15,8 @@ html, body {
 }
 
 #header {
-  top: 5%;
-  padding: 30px 0 30px;
+  top: 2.5%;
+  padding: 2.5% 0 2.5%;
 }
 
 #content {
@@ -198,6 +198,17 @@ html, body {
  text-align:justify;
  line-height:1;
  }
+
+ .title1 {
+  font-family: 'Helvetica', 'Verdana', sans-serif;
+  text-shadow:-20px -20px 0 rgba(255,255,214,0);
+  color:#000000;
+  letter-spacing:2pt;
+  word-spacing:6pt;
+  font-size:20px;
+  text-align:center;
+  line-height:1;
+  }
 
 ul {
     list-style-type: none;
