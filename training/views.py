@@ -3,12 +3,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth import login, authenticate, update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from training.forms import SignUpForm, NewPasswordForm, TrainingDescriptionForm
-from .models import PresetTrainingSession, TrainingSession, GameSession, CaptureSession
+from .models import PresetTrainingSession, TrainingSession, GameSession, CaptureSession, ColorStimuli
 from django.forms import model_to_dict
 import json
 
@@ -27,21 +29,22 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+@login_required(login_url='login/')
 def change_password(request):
     if request.method == 'POST':
-        form = NewPasswordForm(request.user, request.POST)
+        form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('usuario')
-            if User.objects.filter(username=username).exists():
-                update_session_auth_hash(request, user)  # Important!
-                messages.success(request, 'Tu constraseña ha sido actualizada satisfactoriamente')
-                return redirect('change_password')
+            update_session_auth_hash(request, user)  # Important!
+            form = PasswordChangeForm(request.user)
+            messages.success(request, 'Tu contraseña ha sido actualizada')           
+            return  render(request, 'training/password.html',{'form': form})
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'Las contraseña no coincide')
     else:
-        form = NewPasswordForm(request.user, request.POST)
-    return render(request, 'registration/change_password.html', {'form': form})
+        form = PasswordChangeForm(request.user)
+    return render(request, 'training/password.html', {'form': form})
+
 
 def login(request):
     return render(request, 'registration/login.html')
@@ -92,6 +95,32 @@ def colorConfiguration(request):
     return render(request, 'training/colors.html')
 
 @login_required(login_url='login/')
+def saveColor(request):
+    color = request.POST.get('group_radio')
+    print(color)
+    if request.method == 'POST':
+        if color != None:
+            config = ColorStimuli(
+                user=request.user,
+                color=color,
+            )
+            config.save()
+            messages.success(request, 'Se ha actualizado el color correctamente')
+            return render(request, 'training/colors.html')
+        else:
+            messages.warning(request, '¡Debes seleccionar un color!')
+            return render(request, 'training/colors.html')
+
+
+@login_required(login_url='login/')
+def user(request):
+    username = request.user
+    user_training = TrainingSession.objects.filter(user=request.user)
+    user_games = GameSession.objects.filter(user=request.user)
+    user_captures = CaptureSession.objects.filter(user=request.user)
+    return render(request, 'training/user.html')
+
+@login_required(login_url='login/')
 def createSession(request):
     form = TrainingDescriptionForm(request.POST)
     if form.is_valid():
@@ -121,17 +150,12 @@ def sessionTraining(request, session_id):
 @login_required(login_url='login/')
 def trainingResults(request):
     session_pk = request.POST.get('session_id')
-    print(session_pk)
-    try:
-        session = TrainingSession.objects.get(pk=session_pk)
-        data_of_session = model_to_dict(session)
-        return render(request, 'training/resultados.html', {
+    session = TrainingSession.objects.get(pk=session_pk)
+    data_of_session = model_to_dict(session)
+    return render(request, 'training/resultados.html', {
         'data_of_session': json.dumps(data_of_session),
-        } )
-    except TrainingSession.DoesNotExist:
-        return False
-
-    
+    } )
+       
 
 @login_required(login_url='login/')
 def createGame(request):
@@ -168,7 +192,7 @@ def gameResults(request):
     session_pk = request.POST.get('session_id')
     session = GameSession.objects.get(pk=session_pk)
     data_of_session = model_to_dict(session)
-    return render(request, 'training/resultadosJuego.html', {
+    return render(request, 'training/resultados.html', {
         'data_of_session': json.dumps(data_of_session),
     } )
 
@@ -198,7 +222,7 @@ def captureResults(request):
     session_pk = request.POST.get('session_id')
     session = CaptureSession.objects.get(pk=session_pk)
     data_of_session = model_to_dict(session)
-    return render(request, 'training/resultadosCaptura.html', {
+    return render(request, 'training/resultados.html', {
         'data_of_session': json.dumps(data_of_session),
     } )
 
@@ -223,15 +247,19 @@ def saveTrainingResults(request):
 def saveGameResults(request):
     results_game = request.POST.get('generate_results')
     results_to_store = json.loads(json.dumps(results_game))
+    print(results_to_store)
     session_pk = request.POST.get('session_id')
     game = GameSession.objects.get(pk=session_pk)
     if request.method == 'POST':
         if game != None:
             game.results = results_to_store
             game.save()
-            return HttpResponse(status=204)
+            data_of_session = model_to_dict(game)
+            return render(request, 'training/gamesGuardado.html', {
+                'data_of_session': json.dumps(data_of_session),
+            } )
         else:
-            return HttpResponse(status=400)    
+            return HttpResponse(status=400)
 
 
 @login_required(login_url='login/')
@@ -244,6 +272,72 @@ def saveCaptureResults(request):
         if session != None:
             session.results = results_to_store
             session.save()
-            return HttpResponse(status=204)
+            data_of_session = model_to_dict(session)
+            return render(request, 'training/modo_capturaGuardado.html', {
+                'data_of_session': json.dumps(data_of_session),
+            } )
         else:
-            return HttpResponse(status=400)    
+            return HttpResponse(status=400)
+
+@login_required(login_url='login/')
+def trainingList(request):
+    session_list = TrainingSession.objects.filter(user=request.user)
+    return render(request,'training/trainingsession_list.html', {'session_list': session_list})
+
+@login_required(login_url='login/')
+def gamingList(request):
+    session_list = GameSession.objects.filter(user=request.user)
+    return render(request,'training/gaming_list.html', {'session_list': session_list})
+
+@login_required(login_url='login/')
+def captureList(request):
+    session_list = CaptureSession.objects.filter(user=request.user)
+    return render(request,'training/capturesession_list.html', {'session_list': session_list})
+
+@login_required(login_url='login/')
+def consultTraining(request):
+    id_pk = request.POST.get('group_radio')
+    if request.method == 'POST':
+        if id_pk != None:
+            session = TrainingSession.objects.get(id=id_pk)
+            data_of_session = model_to_dict(session)
+            return render(request, 'training/consult.html', {
+                'data_of_session': json.dumps(data_of_session),
+            })
+        else:
+            session_list = TrainingSession.objects.filter(user=request.user)
+            messages.warning(request, '¡Debes seleccionar una opción!')
+            return render(request, 'training/trainingsession_list.html', {'session_list': session_list})
+
+
+@login_required(login_url='login/')
+def consultGame(request):
+   id_pk = request.POST.get('group_radio')
+   if request.method == 'POST':
+        if id_pk != None:
+            session = GameSession.objects.get(id=id_pk)
+            data_of_session = model_to_dict(session)
+            return render(request, 'training/consult.html', {
+                'data_of_session': json.dumps(data_of_session),
+            })
+        else:
+            session_list = GameSession.objects.filter(user=request.user)
+            messages.warning(request, '¡Debes seleccionar una opción!')
+            return render(request, 'training/gaming_list.html')
+
+@login_required(login_url='login/')
+def consultSession(request):
+    id_pk = request.POST.get('group_radio')
+    if request.method == 'POST':
+        if id_pk != None:
+            session = CaptureSession.objects.get(id=id_pk)
+            data_of_session = model_to_dict(session)
+            return render(request, 'training/consult.html', {
+                'data_of_session': json.dumps(data_of_session),
+            })
+        else:
+            session_list = CaptureSession.objects.filter(user=request.user)
+            messages.warning(request, '¡Debes seleccionar una opción!')
+            return render(request, 'training/capturesession_list.html')
+    
+    

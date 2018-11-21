@@ -8,10 +8,11 @@ console.log(tiempos);
 var minimo = Math.min(...tiempo_noZero);
 var maximo = Math.max(...tiempos);
 var promedio = average(tiempo_noZero);
+promedio = promedio.toFixed(2);
 
-document.getElementById("minimo_value").innerHTML = minimo;
-document.getElementById("maximo_value").innerHTML = maximo;
-document.getElementById("average_value").innerHTML = promedio;
+document.getElementById("minimo_value").innerHTML = minimo + ' milisegundos';
+document.getElementById("maximo_value").innerHTML = maximo + ' milisegundos';
+document.getElementById("average_value").innerHTML = promedio + ' milisegundos';
 document.getElementById("hit_value").innerHTML = acierto;
 document.getElementById("fail_value").innerHTML = fallo;
 document.getElementById("error_value").innerHTML = error;

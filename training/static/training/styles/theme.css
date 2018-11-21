@@ -126,6 +126,24 @@ html, body {
   text-decoration: none;
 }
 
+.sq_button {
+  -moz-border-radius: 28;
+  -webkit-border-radius: 28;
+  border-radius: 28px;
+  background: #00b300;
+  border: solid #000000 3px;
+  color: #ffffff;
+  font-family: Courier New;
+  font-size: 26px;
+  padding: 13px 40px 11px 40px;
+  position: relative;
+}
+
+.sq_button:hover {
+  background: #009900;
+  text-decoration: none;
+}
+
 .btn_return {
   -moz-border-radius: 28;
   -webkit-border-radius: 28;
@@ -137,8 +155,6 @@ html, body {
   font-family: Courier New;
   font-size: 26px;
   margin: auto;
-  margin-left: auto;
-  margin-right: auto;
   padding: 13px 40px 11px 40px;
   position: relative;
 }
@@ -198,6 +214,17 @@ html, body {
  text-align:justify;
  line-height:1;
  }
+
+ .text3 {
+  font-family: 'Helvetica', 'Verdana', sans-serif;
+  text-shadow:-20px -20px 0 rgba(255,255,214,0);
+  color:#000000;
+  letter-spacing:0.5pt;
+  word-spacing:1pt;
+  font-size:11px;
+  text-align:center;
+  line-height:1;
+  }
 
  .title1 {
   font-family: 'Helvetica', 'Verdana', sans-serif;
@@ -272,4 +299,53 @@ ul {
   margin: auto 0;
   text-align: center;
   padding: 10px 0px 0px 0px; 
+}
+
+.text_block{
+  text-align: center;
+  display: inline-block;
+}
+
+.square_div{
+  border-style: solid;
+  border-width: 0.25%;
+  margin: 0 auto;
+  max-width: 70%;
+  max-height: 5%; 
+}
+
+.form-radio
+{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f1f1;
+  color: #666;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;     
+  margin-right: 7px;
+  outline: none;
+}
+.form-radio:checked::before
+{
+     position: absolute;
+     font: 13px/1 'Open Sans', sans-serif;
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.form-radio:hover
+{
+     background-color: #f7f7f7;
+}
+.form-radio:checked
+{
+     background-color: #f1f1f1;
 }

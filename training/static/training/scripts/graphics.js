@@ -15,7 +15,7 @@ var chart = new CanvasJS.Chart(resultTimes, {
     axisX: {
         title:"Intento",
         minimum: 0,
-        maximum: max+3,
+        maximum: max+1,
     },
     axisY:{
         title: "Tiempo (en ms.)",

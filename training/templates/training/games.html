@@ -26,7 +26,7 @@
         {% csrf_token %}
         {% for game in games_list %}
             <div class="b">
-                <input type="radio" id="{{game.id}}"name="group_radio" class="check_btn" value="{{game.name}}">
+                <input type="radio" id="{{game.id}}" name="group_radio" class="check_btn" value="{{game.name}}">
                 <label for="{{game.id}}"class="button_game">{{game.name}}</label>
             </div>
         {% endfor %}

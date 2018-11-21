@@ -45,17 +45,27 @@ class PresetTrainingSession(models.Model):
     is_secuencial = models.BooleanField(default=True)
 
 class GameSession(models.Model):
-    time = models.DateField(auto_now=True)
+    time = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game_user', null=True)
     description = models.ForeignKey(PresetTrainingSession, on_delete=models.CASCADE)
     results = JSONField(blank=True, null=True)
     
 
 class CaptureSession(models.Model):
-    time = models.DateField(auto_now=True)
+    time = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='free_user', null=True)
     results = JSONField(blank=True, null=True)
 
+class PageGameSession(models.Model):
+    time = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='web_user', null=True)
+    results = JSONField(blank=True, null=True)
+    bestTime = models.IntegerField(blank=True, null=True)
+    average = models.IntegerField(blank=True, null=True)
+
+class ColorStimuli(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='color_user', null=True)
+    color = models.CharField(blank=True, null=True, max_length=20)
 
 class Question(models.Model):
     question_text = models.TextField(default='Pregunta')

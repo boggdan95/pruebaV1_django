@@ -38,7 +38,7 @@ function startGame() {
   tipo = description_decode.typeReaction;
   juego = description_decode.name;
   if (juego === 'Juego 1'){
-    var no_random = randomInt(10,25);
+    var no_random = randomInt(10,20);
     socket.emit(juego,no_random);
   }
   else{
@@ -48,8 +48,20 @@ function startGame() {
 
 function startCapture(){
   numero = 1;
+  var session = document.getElementById("session_description").textContent;
+  session_decode = JSON.parse(session);
+  id = session_decode.id;
+  document.getElementById('session_id').value = id;
   document.getElementById("button_start").style.display = "none";
+  document.getElementById("button_stop").style.display = "block";
   socket.emit('modo captura');
+  cronometro();
+}
+
+function finishCapture (){
+  document.getElementById("button_stop").style.display = "none";
+  socket.emit('fin captura');
+  stopCronometro();
 }
 
 //Recepcion de canales de Socket.io y sus acciones correspondientes 
@@ -61,6 +73,7 @@ function startCapture(){
 
   socket.on('entrenamiento finalizado', function(){
     getCellValues();
+    document.getElementById("save_results").style.display = "block";
   })
 
 //Insertar resultados
@@ -94,8 +107,26 @@ function getCellValues() {
 
       }
   }
+  var time_number = [];
+  var suma = 0;
+  for (var i = 0; i < times.length; i++) {
+      if (isNaN(times[i]) === true){
+      }
+      else{
+        time_number.push(parseInt(times[i])); 
+      }   
+  }
+  for ( var i = 0; i < time_number.length; i++) {
+    suma = suma + time_number[i];
+  }
+  var num = time_number.length;
+  var promedio = suma/num;
+  promedio = promedio.toFixed(2); 
+  var minimo = Math.min(...time_number);
+  var maximo = Math.max(...time_number);
+  var resultados_destacados = [minimo,maximo, promedio]
 
-  var results = {numero:no, tiempos:times, resultado:result};
+  var results = {numero:no, tiempos:times, resultado:result, resumen:resultados_destacados};
   var myJSON = JSON.stringify(results);
   document.getElementById('generate_results').value = myJSON;
 }
@@ -141,8 +172,30 @@ function temporizador(time){
     if (seconds <= 00 && minutes <= 0) {
       clearInterval(x);
       document.getElementById("timer").innerHTML = "Entrenamiento finalizado";
-      document.getElementById("save_results").style.display = "block";
     }
 
   },1000);
+}
+
+function cronometro(){
+    minutes = 0;
+    seconds = 0;
+ x = setInterval(function(){
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    document.getElementById("timer").innerHTML = minutes +" : " + seconds;
+    seconds++;
+    if (seconds >= 60){
+         minutes++;
+         seconds = 0;
+    }
+  },1000);
+}
+
+function stopCronometro(){
+  clearInterval(x);
+  document.getElementById("timer").innerHTML = "Entrenamiento finalizado";
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 }
