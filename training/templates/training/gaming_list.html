@@ -12,7 +12,7 @@
         <p class="text1">Consulta tus sesiones de juego, {{user}}</p>
     </div>
     <div style="margin: 0px auto">
-        <h3 class="title1">Capturas de tiempo</h3>
+        <h3 class="title1">Juegos</h3>
     </div>
     <div id="consult_panel" class="content">
             <form action="/consultGame" method="post">
@@ -29,7 +29,7 @@
             <div id="div {{GameSession.id}}" class="square_div" style="display:block; margin: 0 auto; text-align: center;">
             <label>
                 <input type="radio" id="{{GameSession.id}}"name="group_radio" class="form-radio" value="{{GameSession.id}}">
-                <p class="text3 text_block bold">Captura id:</p>
+                <p class="text3 text_block bold">Juego id:</p>
                 <p class="text3 text_block">{{ GameSession.id }}</p>
                 <p class="text3 text_block bold">Fecha:</p>
                 <p class="text3 text_block">{{ GameSession.time }}</p>
