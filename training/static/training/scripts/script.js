@@ -51,10 +51,11 @@ function startCapture(){
   var session = document.getElementById("session_description").textContent;
   session_decode = JSON.parse(session);
   id = session_decode.id;
+  time_activation = session_decode.time_activation;
   document.getElementById('session_id').value = id;
   document.getElementById("button_start").style.display = "none";
   document.getElementById("button_stop").style.display = "block";
-  socket.emit('modo captura');
+  socket.emit('modo captura',time_activation);
   cronometro();
 }
 

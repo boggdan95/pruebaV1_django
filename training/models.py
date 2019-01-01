@@ -54,6 +54,7 @@ class GameSession(models.Model):
 class CaptureSession(models.Model):
     time = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='free_user', null=True)
+    time_activation = models.IntegerField(default=1)
     results = JSONField(blank=True, null=True)
 
 class PageGameSession(models.Model):

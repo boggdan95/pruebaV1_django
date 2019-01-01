@@ -198,12 +198,14 @@ def gameResults(request):
 
 @login_required(login_url='login/')
 def createCapture(request):
-        session = CaptureSession(
-            user=request.user,
-        )
-        session.save()
-    
-        return redirect('sesionCaptura/{}'.format(session.id))
+        time_activation = request.POST.get('time_activation')
+        if time_activation != 0:
+            session = CaptureSession(
+                user=request.user,
+                time_activation=time_activation
+            )
+            session.save()
+            return redirect('sesionCaptura/{}'.format(session.id))
 
     #TODO: SHOW ERROR
 
